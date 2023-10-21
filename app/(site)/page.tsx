@@ -1,7 +1,7 @@
 export default function Home() {
     return (
-        <div>
-            Hello Mausiki
+        <div className="text-blue-400">
+            Hello Mausiki!
         </div>
     )
 }
