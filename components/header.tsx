@@ -21,6 +21,8 @@ const Header: React.FC<HeaderProps> = ({
     const authModal = useAuthModal();
     const router = useRouter();
 
+    
+
     const handleLogout = () => {
         // handle logout in the future
     }
