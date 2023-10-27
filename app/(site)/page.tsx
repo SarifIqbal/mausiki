@@ -21,12 +21,21 @@ export default async function Home() {
                     <h1
                         className="
                             text-white
-                            text-3xl
+                            text-4xl
                             font-semibold
                         "
                     >
-                        Welcome back
+                        Mausiki
                     </h1>
+                    <h2
+                        className="
+                        text-white
+                        text-xl
+                        font-semibold
+                    "
+                    >
+                        made with ❤️ by <a href="https://github.com/sarifiqbal" target="_blank" rel="noopener noreference">Sarif Iqbal</a>
+                    </h2>
                     <div
                         className="
                             grid
