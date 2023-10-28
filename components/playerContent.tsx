@@ -2,13 +2,14 @@
 
 import { Song } from "@/types";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MediaItem from "./mediaItem";
 import LikeButton from "./likeButton";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import Slider from "./slider";
 import usePlayer from "@/hooks/usePlayer";
+import useSound from "use-sound";
 
 interface PlayerContentProps {
     song: Song;
@@ -46,6 +47,43 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
         }
         player.setId(previousSong);
     };
+
+    const [play, { pause, sound }] = useSound(
+        songUrl,
+        {
+            volume: volume,
+            onplay: () => setIsPlaying(true),
+            onend: () => {
+                setIsPlaying(false);
+                onPlayNext();
+            },
+            onpause: () => setIsPlaying(false),
+            format: ['mp3']
+        }
+    );
+
+    useEffect(() => {
+        sound?.play();
+        return () => {
+            sound?.unload();
+        }
+    }, [sound]);
+
+    const handlePlay = () => {
+        if (!isPlaying) {
+            play();
+        } else {
+            pause();
+        }
+    };
+
+    const toggleMute = () => {
+        if (volume === 0) {
+            setVolume(1);
+        } else {
+            setVolume(0);
+        }
+    }
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
@@ -143,11 +181,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
             >
                 <div className="flex items-center gap-x-2 w-[120px]" >
                     <VolumeIcon
-                        onClick={() => {}}
+                        onClick={toggleMute}
                         className="cursor-pointer"
                         size={30}
                     />
-                    <Slider />
+                    <Slider
+                        value={volume}
+                        onChange={(value) => setVolume(value)}
+                    />
                 </div>
             </div>
         </div>
