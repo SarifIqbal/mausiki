@@ -66,7 +66,7 @@ const SongItem: React.FC<SongItemProps> = ({
                         truncate
                     "
                 >
-                    By {data.author}
+                    by {data.author}
                 </p>
             </div>
             <div className="
